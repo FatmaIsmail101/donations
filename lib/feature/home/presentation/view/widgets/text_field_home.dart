@@ -6,7 +6,7 @@ import '../../../../../core/constants/colors.dart';
 import '../../../../../core/constants/font_style.dart';
 
 class TextFieldHome extends StatefulWidget {
-   TextFieldHome({super.key,required this.textEditingController});
+   const TextFieldHome({super.key,required this.textEditingController});
   final textEditingController;
 
   @override

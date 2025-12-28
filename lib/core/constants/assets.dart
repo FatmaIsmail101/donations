@@ -7,5 +7,7 @@ abstract class AppAssets{
   static const String nafakatNakdya="assets/images/nafakat_nakdya.jpg";
   static const String taysarat="assets/images/taysarat.jpg";
   static const String nafakatNakdyaDetails="assets/images/nafakat_nakdya_details.jpg";
+  static const String ryal="assets/images/ryal.svg";
+
 
 }

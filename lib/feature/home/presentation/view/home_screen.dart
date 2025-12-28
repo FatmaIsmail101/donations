@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/assets.dart';
 import '../../../../core/constants/colors.dart';
@@ -161,9 +162,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: Column(
                                         spacing: 32.h,
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.end,
+                                            CrossAxisAlignment.end,
                                         children: [
                                           SizedBox(height: 20.h),
                                           Text(
@@ -181,103 +182,126 @@ class _HomeScreenState extends State<HomeScreen> {
                                               // المسافة بين العناصر أفقي
                                               runSpacing: 50.h,
                                               // المسافة بين الأسطر عمودي
-                                              children: List.generate(MoneyDetails.fe2atNakdya.length, (
-                                                  index,
-                                                  ) {
-                                                bool isSelected =
-                                                   currentIndex ==
-                                                        index;
+                                              children: List.generate(
+                                                MoneyDetails.fe2atNakdya.length,
+                                                (index) {
+                                                  bool isSelected =
+                                                      currentIndex == index;
 
-                                                return InkWell(
-                                                  onTap: () {
-                                                    //final isSelected = widget.currentIndex == index;
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      //final isSelected = widget.currentIndex == index;
 
-                                                    setDialogState(() {
-                                                      currentIndex =
-                                                          index;
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    padding:
-                                                    EdgeInsets.symmetric(
-                                                      // vertical: 12.h,
-                                                      horizontal: 17.w,
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                      BorderRadius.circular(
-                                                        30.r,
-                                                      ),
-                                                      color: isSelected
-                                                          ? Color(0xff0D4066)
-                                                          : Color(0xffF8F8F8),
-                                                    ),
-                                                    // height: 700.h,
-                                                    // خلي العرض ديناميكي حسب المحتوى
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                      MainAxisSize.min,
-                                                      children: [
-
-                                                        Text(
-                                                          MoneyDetails
-                                                              .fe2atNakdya[index],
-                                                          textDirection:
-                                                          TextDirection.rtl,
-                                                          style: FontStyleApp
-                                                              .nahdiBold45px
-                                                              .copyWith(
-                                                            color:
-                                                            isSelected
-                                                                ? ColorsApp
-                                                                .white
-                                                                : Color(
-                                                              0xff9C9C9C,
-                                                            ),
-                                                            fontSize: 51.sp,
+                                                      setDialogState(() {
+                                                        currentIndex = index;
+                                                      });
+                                                    },
+                                                    child: Container(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                            // vertical: 12.h,
+                                                            horizontal: 17.w,
                                                           ),
-                                                        ),
-                                                      ],
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                              30.r,
+                                                            ),
+                                                        color: isSelected
+                                                            ? Color(0xff0D4066)
+                                                            : Color(0xffF8F8F8),
+                                                      ),
+                                                      // height: 700.h,
+                                                      // خلي العرض ديناميكي حسب المحتوى
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Text(
+                                                            MoneyDetails
+                                                                .fe2atNakdya[index],
+                                                            textDirection:
+                                                                TextDirection
+                                                                    .rtl,
+                                                            style: FontStyleApp
+                                                                .nahdiBold45px
+                                                                .copyWith(
+                                                                  color:
+                                                                      isSelected
+                                                                      ? ColorsApp
+                                                                            .white
+                                                                      : Color(
+                                                                          0xff9C9C9C,
+                                                                        ),
+                                                                  fontSize:
+                                                                      51.sp,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                );
-                                              }),
+                                                  );
+                                                },
+                                              ),
                                             ),
                                           ),
 
-                                          ValueListenableBuilder<TextEditingValue>(
-                                            valueListenable: widget.textEditingController,
+                                          ValueListenableBuilder<
+                                            TextEditingValue
+                                          >(
+                                            valueListenable:
+                                                widget.textEditingController,
                                             builder: (context, value, child) {
                                               return TextFormField(
-                                                textDirection: TextDirection.rtl,
-                                                controller: widget.textEditingController,
-                                                keyboardType: TextInputType.number,
+                                                textDirection:
+                                                    TextDirection.rtl,
+                                                controller: widget
+                                                    .textEditingController,
+                                                keyboardType:
+                                                    TextInputType.number,
                                                 decoration: InputDecoration(
-                                                  prefixText: value.text.isNotEmpty ? "ريال " : "",
-                                                  prefixStyle: FontStyleApp.almaraiBold43px.copyWith(
-                                                    color: Color(0xff9C9C9C),
-                                                  ),
-                                                  hintText: "قيمة المبلغ",hintTextDirection: TextDirection.rtl,
-                                                  hintStyle: FontStyleApp.nahdiBold45px.copyWith(
-                                                    fontSize: 40.sp,
-                                                    color: Color(0xff9C9C9C),
-                                                  ),
+                                                  prefixIcon:
+                                                      value.text.isNotEmpty
+                                                      ? SvgPicture.asset(
+                                                          AppAssets.ryal,
+                                                          height: 22.h,
+                                                          width: 22.w,
+                                                          colorFilter:
+                                                              ColorFilter.mode(
+                                                                ColorsApp.grey,
+                                                                BlendMode.srcIn,
+                                                              ),
+                                                        )
+                                                      : null,
+
+                                                  hintText: "قيمة المبلغ",
+                                                  hintTextDirection:
+                                                      TextDirection.rtl,
+                                                  hintStyle: FontStyleApp
+                                                      .nahdiBold45px
+                                                      .copyWith(
+                                                        fontSize: 40.sp,
+                                                        color: Color(
+                                                          0xff9C9C9C,
+                                                        ),
+                                                      ),
                                                   filled: true,
                                                   fillColor: Color(0xffF8F8F8),
                                                   border: InputBorder.none,
                                                 ),
-                                                style: FontStyleApp.nahdiBold45px.copyWith(
-                                                  fontSize: 40.sp,
-                                                  color: ColorsApp.grey,
-                                                ),
+                                                style: FontStyleApp
+                                                    .nahdiBold45px
+                                                    .copyWith(
+                                                      fontSize: 40.sp,
+                                                      color: ColorsApp.grey,
+                                                    ),
                                                 maxLines: 1,
                                               );
                                             },
-                                          )
-                                          ,
+                                          ),
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                             spacing: 14.w,
                                             children: [
                                               Expanded(
@@ -287,9 +311,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   decoration: BoxDecoration(
                                                     color: Color(0xff0F4366),
                                                     borderRadius:
-                                                    BorderRadius.circular(
-                                                      40.r,
-                                                    ),
+                                                        BorderRadius.circular(
+                                                          40.r,
+                                                        ),
                                                   ),
 
                                                   child: InkWell(
@@ -301,10 +325,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       style: FontStyleApp
                                                           .nahdiBold45px
                                                           .copyWith(
-                                                        fontSize: 56.sp,
-                                                        color:
-                                                        ColorsApp.white,
-                                                      ),
+                                                            fontSize: 56.sp,
+                                                            color:
+                                                                ColorsApp.white,
+                                                          ),
                                                     ),
                                                   ),
                                                 ),
@@ -318,63 +342,62 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       context: context,
                                                       builder:
                                                           (
-                                                          BuildContext
-                                                          dialogContext,
+                                                            BuildContext
+                                                            dialogContext,
                                                           ) {
-                                                        return AlertDialog(
-                                                          //icon
-                                                          backgroundColor:
-                                                          ColorsApp
-                                                              .white,
+                                                            return AlertDialog(
+                                                              //icon
+                                                              backgroundColor:
+                                                                  ColorsApp
+                                                                      .white,
 
-                                                          content: SizedBox(
-                                                            width: 1018.w,
-                                                            height: 1200.h,
-                                                            child: Column(
-                                                              spacing: 36.h,
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                              children: [
-                                                                Image.asset(
-                                                                  AppAssets
-                                                                      .check,
-                                                                  height:
-                                                                  241.h,
-                                                                  width:
-                                                                  241.w,
-                                                                ),
-                                                                SizedBox(
-                                                                  height:
-                                                                  75.h,
-                                                                ),
-                                                                Text(
-                                                                  'تم بنجاح',
-                                                                  style: FontStyleApp.almaraiBold56px.copyWith(
-                                                                    fontSize:
-                                                                    78.sp,
-                                                                    color: Color(
-                                                                      0xff0C3D61,
+                                                              content: SizedBox(
+                                                                width: 1018.w,
+                                                                height: 1200.h,
+                                                                child: Column(
+                                                                  spacing: 36.h,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Image.asset(
+                                                                      AppAssets
+                                                                          .check,
+                                                                      height:
+                                                                          241.h,
+                                                                      width:
+                                                                          241.w,
                                                                     ),
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  'شكراً لـ تبرعك',
-                                                                  style: FontStyleApp.almaraiBold56px.copyWith(
-                                                                    fontSize:
-                                                                    78.sp,
-                                                                    color: Color(
-                                                                      0xff0C3D61,
+                                                                    SizedBox(
+                                                                      height:
+                                                                          75.h,
                                                                     ),
-                                                                  ),
+                                                                    Text(
+                                                                      'تم بنجاح',
+                                                                      style: FontStyleApp.almaraiBold56px.copyWith(
+                                                                        fontSize:
+                                                                            78.sp,
+                                                                        color: Color(
+                                                                          0xff0C3D61,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      'شكراً لـ تبرعك',
+                                                                      style: FontStyleApp.almaraiBold56px.copyWith(
+                                                                        fontSize:
+                                                                            78.sp,
+                                                                        color: Color(
+                                                                          0xff0C3D61,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
                                                                 ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
+                                                              ),
+                                                            );
+                                                          },
                                                     );
-
                                                   },
                                                   child: Container(
                                                     alignment: Alignment.center,
@@ -384,9 +407,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     decoration: BoxDecoration(
                                                       color: ColorsApp.green,
                                                       borderRadius:
-                                                      BorderRadius.circular(
-                                                        40.r,
-                                                      ),
+                                                          BorderRadius.circular(
+                                                            40.r,
+                                                          ),
                                                     ),
 
                                                     child: Text(
@@ -394,10 +417,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       style: FontStyleApp
                                                           .nahdiBold45px
                                                           .copyWith(
-                                                        fontSize: 56.sp,
-                                                        color:
-                                                        ColorsApp.white,
-                                                      ),
+                                                            fontSize: 56.sp,
+                                                            color:
+                                                                ColorsApp.white,
+                                                          ),
                                                     ),
                                                   ),
                                                 ),
@@ -416,8 +439,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       },
                     );
-                  }
-                  else {
+                  } else {
                     showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,
@@ -449,7 +471,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       SizedBox(height: 26.h),
                                       Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           BoxItem(),
                                           Text(
@@ -471,9 +493,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           // المسافة بين الأسطر عمودي
                                           children: List.generate(
                                             MoneyDetails.fe2atNakdya.length,
-                                                (index) {
-                                              int selectedIndex =
-                                                  currentIndex;
+                                            (index) {
+                                              int selectedIndex = currentIndex;
                                               bool isSelected =
                                                   selectedIndex == index;
 
@@ -491,9 +512,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ),
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                    BorderRadius.circular(
-                                                      30.r,
-                                                    ),
+                                                        BorderRadius.circular(
+                                                          30.r,
+                                                        ),
                                                     color: isSelected
                                                         ? Color(0xff0D4066)
                                                         : Color(0xffF8F8F8),
@@ -502,7 +523,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   // خلي العرض ديناميكي حسب المحتوى
                                                   child: Row(
                                                     mainAxisSize:
-                                                    MainAxisSize.min,
+                                                        MainAxisSize.min,
                                                     children: [
                                                       // Text(
                                                       //   "ريال",
@@ -525,18 +546,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         MoneyDetails
                                                             .fe2atNakdya[index],
                                                         textDirection:
-                                                        TextDirection.rtl,
+                                                            TextDirection.rtl,
                                                         style: FontStyleApp
                                                             .nahdiBold45px
                                                             .copyWith(
-                                                          color: isSelected
-                                                              ? ColorsApp
-                                                              .white
-                                                              : Color(
-                                                            0xff9C9C9C,
-                                                          ),
-                                                          fontSize: 51.sp,
-                                                        ),
+                                                              color: isSelected
+                                                                  ? ColorsApp
+                                                                        .white
+                                                                  : Color(
+                                                                      0xff9C9C9C,
+                                                                    ),
+                                                              fontSize: 51.sp,
+                                                            ),
                                                       ),
                                                     ],
                                                   ),
@@ -546,51 +567,63 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ),
                                       ),
-                                    ValueListenableBuilder<TextEditingValue>(
-                                      valueListenable:
-                                      widget.textEditingController,
-                                      builder: (context, value, child) {
-                                        return TextFormField(
-                                          controller:
-                                          widget.textEditingController,
-                                          keyboardType: TextInputType.number,
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter.allow(
-                                              RegExp(r'[0-9]'),
-                                            ),
-                                          ],
-                                          textDirection: TextDirection.rtl,
-                                          textAlign: TextAlign.right,
-                                          decoration: InputDecoration(
-                                              prefixText: value.text.isNotEmpty
-                                                  ? "ريال "
-                                                  : "",
-                                              prefixStyle: FontStyleApp
-                                                  .almaraiBold43px
+                                      ValueListenableBuilder<TextEditingValue>(
+                                        valueListenable:
+                                            widget.textEditingController,
+                                        builder: (context, value, child) {
+                                          return TextFormField(
+                                            controller:
+                                                widget.textEditingController,
+                                            keyboardType: TextInputType.number,
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter.allow(
+                                                RegExp(r'[0-9]'),
+                                              ),
+                                            ],
+                                            textDirection: TextDirection.rtl,
+                                            textAlign: TextAlign.right,
+                                            decoration: InputDecoration(
+                                              prefixIcon: value.text.isNotEmpty
+                                                  ? SvgPicture.asset(
+                                                      AppAssets.ryal,
+                                                      height: 47.h,
+                                                      width: 61.w,
+                                                      colorFilter:
+                                                          ColorFilter.mode(
+                                                            ColorsApp.grey,
+                                                            BlendMode.srcIn,
+                                                          ),
+                                                    )
+                                                  : null,
+                                              prefixIconConstraints: BoxConstraints(
+                                                minWidth: 24.w,
+                                                minHeight: 24.h,
+                                              ),
+                                              hintText: "قيمة المبلغ",
+                                              hintStyle: FontStyleApp
+                                                  .nahdiBold45px
                                                   .copyWith(
-                                                color: Color(0xff9C9C9C),
-                                              ),hintText: "قيمة المبلغ",
-                                            hintStyle: FontStyleApp
-                                                .nahdiBold45px
-                                                .copyWith(
-                                              fontSize: 40.sp,
-                                              color: Color(0xff9C9C9C),
+                                                    fontSize: 40.sp,
+                                                    color: Color(0xff9C9C9C),
+                                                  ),
+                                              border: InputBorder.none,
+                                              focusedBorder: InputBorder.none,
+                                              enabledBorder: InputBorder.none,
+                                              filled: true,
+                                              fillColor: Color(0xffF8F8F8),
                                             ),
-                                            border: InputBorder.none,
-                                            focusedBorder: InputBorder.none,
-                                            enabledBorder: InputBorder.none,
-                                            filled: true,
-                                            fillColor: Color(0xffF8F8F8),
-                                          ),
-                                          style: FontStyleApp.nahdiBold45px
-                                              .copyWith(fontSize: 40.sp,color: ColorsApp.grey),
-                                          maxLines: 1,
-                                        );
-                                      },
-                                    ),
+                                            style: FontStyleApp.nahdiBold45px
+                                                .copyWith(
+                                                  fontSize: 40.sp,
+                                                  color: ColorsApp.grey,
+                                                ),
+                                            maxLines: 1,
+                                          );
+                                        },
+                                      ),
                                       Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         spacing: 14.w,
                                         children: [
                                           Expanded(
@@ -600,7 +633,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               decoration: BoxDecoration(
                                                 color: Color(0xff0F4366),
                                                 borderRadius:
-                                                BorderRadius.circular(40.r),
+                                                    BorderRadius.circular(40.r),
                                               ),
 
                                               child: InkWell(
@@ -612,9 +645,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   style: FontStyleApp
                                                       .nahdiBold45px
                                                       .copyWith(
-                                                    fontSize: 56.sp,
-                                                    color: ColorsApp.white,
-                                                  ),
+                                                        fontSize: 56.sp,
+                                                        color: ColorsApp.white,
+                                                      ),
                                                 ),
                                               ),
                                             ),
@@ -629,7 +662,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   builder: (BuildContext dialogContext) {
                                                     return AlertDialog(
                                                       backgroundColor:
-                                                      ColorsApp.white,
+                                                          ColorsApp.white,
                                                       //icon
                                                       // title: Image.asset(AppAssets.check),
                                                       content: SizedBox(
@@ -638,8 +671,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         child: Column(
                                                           spacing: 36.h,
                                                           mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
+                                                              MainAxisAlignment
+                                                                  .center,
                                                           children: [
                                                             Image.asset(
                                                               AppAssets.check,
@@ -654,24 +687,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               style: FontStyleApp
                                                                   .almaraiBold56px
                                                                   .copyWith(
-                                                                fontSize:
-                                                                78.sp,
-                                                                color: Color(
-                                                                  0xff0C3D61,
-                                                                ),
-                                                              ),
+                                                                    fontSize:
+                                                                        78.sp,
+                                                                    color: Color(
+                                                                      0xff0C3D61,
+                                                                    ),
+                                                                  ),
                                                             ),
                                                             Text(
                                                               'شكراً لـ تبرعك',
                                                               style: FontStyleApp
                                                                   .almaraiBold56px
                                                                   .copyWith(
-                                                                fontSize:
-                                                                78.sp,
-                                                                color: Color(
-                                                                  0xff0C3D61,
-                                                                ),
-                                                              ),
+                                                                    fontSize:
+                                                                        78.sp,
+                                                                    color: Color(
+                                                                      0xff0C3D61,
+                                                                    ),
+                                                                  ),
                                                             ),
                                                           ],
                                                         ),
@@ -687,9 +720,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 decoration: BoxDecoration(
                                                   color: ColorsApp.green,
                                                   borderRadius:
-                                                  BorderRadius.circular(
-                                                    40.r,
-                                                  ),
+                                                      BorderRadius.circular(
+                                                        40.r,
+                                                      ),
                                                 ),
 
                                                 child: Text(
@@ -697,9 +730,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   style: FontStyleApp
                                                       .nahdiBold45px
                                                       .copyWith(
-                                                    fontSize: 56.sp,
-                                                    color: ColorsApp.white,
-                                                  ),
+                                                        fontSize: 56.sp,
+                                                        color: ColorsApp.white,
+                                                      ),
                                                 ),
                                               ),
                                             ),

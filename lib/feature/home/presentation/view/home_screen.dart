@@ -1,3 +1,4 @@
+import 'package:donations/core/payment/utils/payment/nearpay/nearpay_functions.dart';
 import 'package:donations/feature/home/presentation/view/widgets/box_item.dart';
 import 'package:donations/feature/home/presentation/view/widgets/home_card_item.dart';
 import 'package:flutter/foundation.dart';
@@ -641,8 +642,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           Expanded(
                                             child: InkWell(
-                                              onTap: () {
-                                                sendOtp();
+                                              onTap: ()async {
+                                              int amount=1000;
+                                              var terminal=await NearpayFunctions().getTerminalModel();
+                                              await NearpayFunctions().purchase(terminal, amount, 12345, (response) {
+                                                if(response.status=="Approved"){
+                                                  print("RRN:${response.getLastTransaction()?.referenceId}");
+                                                }
+                                              },);
                                                 Navigator.pop(context);
 
                                                 showDialog<void>(

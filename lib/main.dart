@@ -7,6 +7,8 @@ import 'core/constants/routes/routes.dart';
 
 void main() {
   GoogleFonts.config.allowRuntimeFetching=false;
+  //AuthenticationData.Mobile("+966500000000");
+
   runApp( Directionality(
       textDirection: TextDirection.rtl,
       child: MyApp()));

@@ -9,9 +9,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/constants/assets.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/font_style.dart';
+import '../../../../core/nearpay/near_pay.dart';
 import '../../../home_details/data/money.dart';
 import '../../../home_details/presentation/view/home_screen_details.dart';
 import '../../data/model/home_screen_model.dart';
+import 'package:flutter_terminal_sdk/flutter_terminal_sdk.dart';
+import 'package:flutter_terminal_sdk/models/data/ui_dock_position.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -525,23 +528,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     mainAxisSize:
                                                         MainAxisSize.min,
                                                     children: [
-                                                      // Text(
-                                                      //   "ريال",
-                                                      //   textDirection:
-                                                      //       TextDirection.ltr,
-                                                      //   style: FontStyleApp
-                                                      //       .nahdiBold45px
-                                                      //       .copyWith(
-                                                      //         color: isSelected
-                                                      //             ? ColorsApp
-                                                      //                   .white
-                                                      //             : Color(
-                                                      //                 0xff9C9C9C,
-                                                      //               ),
-                                                      //         fontSize: 51.sp,
-                                                      //       ),
-                                                      // ),
-                                                      // SizedBox(width: 6.w),
+
                                                       Text(
                                                         MoneyDetails
                                                             .fe2atNakdya[index],
@@ -655,6 +642,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Expanded(
                                             child: InkWell(
                                               onTap: () {
+                                                sendOtp();
                                                 Navigator.pop(context);
 
                                                 showDialog<void>(
@@ -785,8 +773,28 @@ class _HomeScreenState extends State<HomeScreen> {
       MaterialPageRoute(builder: (context) => HomeScreenDetails(model: model)),
     );
   }
+
+
+
 }
 
+// Text(
+//   "ريال",
+//   textDirection:
+//       TextDirection.ltr,
+//   style: FontStyleApp
+//       .nahdiBold45px
+//       .copyWith(
+//         color: isSelected
+//             ? ColorsApp
+//                   .white
+//             : Color(
+//                 0xff9C9C9C,
+//               ),
+//         fontSize: 51.sp,
+//       ),
+// ),
+// SizedBox(width: 6.w),
 // Text(
 //   "ريال",
 //   textDirection:

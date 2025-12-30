@@ -1,24 +1,17 @@
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
+import java.util.Properties
+import org.gradle.api.tasks.Delete
 
-val newBuildDir: Directory =
-    rootProject.layout.buildDirectory
-        .dir("../../build")
-        .get()
-rootProject.layout.buildDirectory.value(newBuildDir)
+
+// تغيير مجلد build
+val newBuildDir = rootProject.layout.buildDirectory.dir("../../build").get()
+rootProject.layout.buildDirectory.set(newBuildDir)
 
 subprojects {
-    val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
-    project.layout.buildDirectory.value(newSubprojectBuildDir)
-}
-subprojects {
-    project.evaluationDependsOn(":app")
+    layout.buildDirectory.set(newBuildDir.dir(project.name))
+    evaluationDependsOn(":app")
 }
 
+// تعريف task clean
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }

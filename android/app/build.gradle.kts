@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.donations"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 33
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -16,7 +16,8 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = "11"
+            //JavaVersion.VERSION_11.toString()
     }
 
     defaultConfig {
@@ -24,7 +25,7 @@ android {
         applicationId = "com.example.donations"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        minSdk = 28
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -41,4 +42,16 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.24")
+    //1.8.0
+    //implementation("io:flutter:flutter_embedding_release:1.0.0")
+    implementation(project(":flutter_terminal_sdk")) // Plugin محلي
+    implementation("io.nearpay:terminalsdk-release:0.0.134")
+    implementation("com.google.android.gms:play-services-location:20.0.0")
+    implementation("com.huawei.hms:location:6.4.0.300")
+    implementation("com.nearpay:sdk:2.1.97")
+
 }

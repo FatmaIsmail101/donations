@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-//import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'imin_printer_method_channel.dart';
 import 'enums.dart';

@@ -84,19 +84,19 @@ class NearpayFunctions {
 
   Future<void> nearpayJwt() async {
     var result = await NearpayJwtDataSource.nearpayJwt();
-    // result.fold(
-    //       (l) {
-    //     print("Error jwt: ${l.message}");
-    //   },
-    //       (jwt) async {
-    //     // print("jwt: $jwt");
-    //     AndroidOptions getAndroidOptions() => const AndroidOptions(
-    //       encryptedSharedPreferences: true,
-    //     );
-    //     final storage = FlutterSecureStorage(aOptions: getAndroidOptions());
-    //     await storage.write(key: "nearpayJWT", value: jwt);
-    //   },
-    // );
+    result.fold(
+          (l) {
+        print("Error jwt: ${l}");
+      },
+          (jwt) async {
+        // print("jwt: $jwt");
+        AndroidOptions? getAndroidOptions() => const AndroidOptions(
+          encryptedSharedPreferences: true,
+        );
+        final storage = FlutterSecureStorage(aOptions: getAndroidOptions()!);
+        await storage.write(key: "nearpayJWT", value: jwt);
+      },
+    );
   }
 
   Future<void> verifyJWTNearpay() async {

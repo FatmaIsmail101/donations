@@ -4,7 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'core/constants/routes/routes.dart';
-import 'core/payment/utils/payment/nearpay/nearpay_functions.dart';
+//import 'core/payment/utils/payment/nearpay/nearpay_functions.dart';
+import 'core/utils/payment/nearpay/nearpay_functions.dart';
 
 void main()async {
   GoogleFonts.config.allowRuntimeFetching=false;

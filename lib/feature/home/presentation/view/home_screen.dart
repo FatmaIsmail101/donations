@@ -10,7 +10,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/constants/assets.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/font_style.dart';
-import '../../../../core/nearpay/near_pay.dart';
 import '../../../../core/utils/payment/nearpay/nearpay_functions.dart';
 import '../../../home_details/data/money.dart';
 import '../../../home_details/presentation/view/home_screen_details.dart';

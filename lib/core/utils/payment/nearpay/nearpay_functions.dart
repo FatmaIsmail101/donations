@@ -86,7 +86,7 @@ class NearpayFunctions {
     var result = await NearpayJwtDataSource.nearpayJwt();
     result.fold(
           (l) {
-        print("Error jwt: ${l}");
+        print("Error jwt: $l");
       },
           (jwt) async {
         // print("jwt: $jwt");
@@ -365,7 +365,8 @@ class NearpayFunctions {
     try {
       ReverseResponse reverseResponse =
       await connectedTerminal.reverseTransaction(
-          transactionID: transactionUuid, intentId: intentId);
+         // transactionID: transactionUuid,
+          intentId: intentId);
       print(
           "reverse Successful! ${reverseResponse.details.transactions?[0].id}");
       return reverseResponse;

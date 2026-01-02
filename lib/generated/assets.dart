@@ -10,10 +10,14 @@ class Assets {
   static const String imagesCheck = 'assets/images/check.jpg';
   static const String imagesDonations = 'assets/images/donations.jpg';
   static const String imagesE3ana = 'assets/images/e3ana.jpg';
+  static const String imagesError = 'assets/images/error.png';
+  static const String imagesFe2atDetails = 'assets/images/fe2at_details.png';
   static const String imagesForegat = 'assets/images/foregat.jpg';
+  static const String imagesGroup  = 'assets/images/Group 1.png';
   static const String imagesHomeScreen = 'assets/images/home_screen.jpg';
   static const String imagesNafakatNakdya = 'assets/images/nafakat_nakdya.jpg';
-  static const String imagesNafakatNakdyaDetails = 'assets/images/nafakat_nakdya_details.jpg';
+  static const String imagesRyal = 'assets/images/ryal.svg';
+  static const String imagesScreenDetailsSoura = 'assets/images/screen_details_soura.png';
   static const String imagesTaysarat = 'assets/images/taysarat.jpg';
 
 }

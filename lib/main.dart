@@ -1,4 +1,5 @@
 import 'package:donations/core/constants/routes/routes_name.dart';
+import 'package:donations/core/nearpay/near_pay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,13 +9,21 @@ import 'core/constants/routes/routes.dart';
 import 'core/utils/payment/nearpay/nearpay_functions.dart';
 
 void main()async {
-  GoogleFonts.config.allowRuntimeFetching=false;
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await initialize();
+ // GoogleFonts.config.allowRuntimeFetching=false;
   //AuthenticationData.Mobile("+966500000000");
   await NearpayFunctions().initializeNearpay();
 
-  runApp( Directionality(
-      textDirection: TextDirection.rtl,
-      child: MyApp()));
+  runApp( ScreenUtilInit(
+    designSize: const Size(1080, 1920),
+    minTextAdapt: true,
+    splitScreenMode: true,
+    builder:(context, child) =>  Directionality(
+        textDirection: TextDirection.rtl,
+        child: MyApp()),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,18 +32,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(1080, 1920),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: "الصدقات",
-          initialRoute: RoutesName.homeScreen,
-          onGenerateRoute: Routes.routes,
-        );
-      },
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "الصدقات",
+      initialRoute: RoutesName.homeScreen,
+      onGenerateRoute: Routes.routes,
     );
   }
 }

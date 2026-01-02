@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 //import 'package:easacc_pos/core/utiles/api_end_point.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,10 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 //import '../../../error/failures.dart';
 
 class NearpayJwtDataSource {
-  static Future<Either<dynamic , dynamic>> nearpayJwt() async {
+  static Future<Either<dynamic , String>> nearpayJwt() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     dynamic deviceCode = prefs.getString("deviceCode") ?? "";
-    return deviceCode;
+    return Right(deviceCode);
    /* try {
       final response = await
       return Right(response.data);

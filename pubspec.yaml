@@ -39,13 +39,15 @@ dependencies:
   flutter_svg: ^2.2.3
 
   flutter_terminal_sdk:
-    path: D:/easacc/flutter-terminal-sdk
+     path:
+       D:/easacc/terminal_sdk/flutter-terminal-sdk
   shared_preferences: ^2.5.4
   flutter_secure_storage: ^10.0.0
   uuid: ^4.5.2
   dartz: ^0.10.1
   dio: ^5.9.0
   logger: ^2.6.2
+  flutter_launcher_icons: ^0.14.4
 
 
 
@@ -109,4 +111,10 @@ flutter:
     - assets/images/
     - assets/fonts/
     - assets/fonts/almarai/
+    - assets/images/2.0x/
+    - assets/images/3.0x/
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/donations.jpg"

@@ -3,28 +3,30 @@ import 'package:donations/core/constants/colors.dart';
 import 'package:donations/core/constants/font_style.dart';
 import 'package:donations/feature/home/data/model/home_screen_model.dart';
 import 'package:donations/feature/home_details/data/money.dart';
+import 'package:donations/feature/home_details/presentation/view/widget/donation_selector_details.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import '../../../../core/nearpay/near_pay.dart';
 
-class HomeScreenDetails extends StatefulWidget {
+class HomeScreenDetails extends StatelessWidget {
   HomeScreenDetails({super.key, required this.model});
 
   HomeScreenModel model;
   final TextEditingController textEditingController = TextEditingController();
 
-  @override
-  State<HomeScreenDetails> createState() => _HomeScreenDetailsState();
-}
-
-class _HomeScreenDetailsState extends State<HomeScreenDetails> {
   int currentIndex = -1;
 
   @override
   Widget build(BuildContext context) {
-    // final model=ModalRoute.of(context)!.settings.arguments as HomeScreenModel;
+    final presetAmounts = model.name == "الفئات النقدية"
+        ? MoneyDetails.fe2atNakdya
+        : MoneyDetails.e3anaFamily;
+
+    final title = model.name == "الفئات النقدية"
+        ? "الفئات النقدية"
+        : "مبلغ التبرع";
 
     return Scaffold(
       appBar: AppBar(
@@ -55,16 +57,18 @@ class _HomeScreenDetailsState extends State<HomeScreenDetails> {
               children: [
                 Stack(
                   children: [
-                    Image.asset(AppAssets.nafakatNakdyaDetails),
+                    Image.asset(
+                      model.name == "الفئات النقدية"
+                          ? AppAssets.nafakatNakdyaDetails
+                          : "assets/images/screen_details_soura.png",
+                    ),
                     Positioned(
                       bottom: 68.h,
                       top: (kIsWeb) ? 300.h : 128.h,
-                      left: widget.model.name == "الفئات النقدية"
-                          ? 296.w
-                          : 360.w,
+                      left: model.name == "الفئات النقدية" ? 296.w : 360.w,
                       right: (kIsWeb) ? 310.w : 0,
                       child: Text(
-                        widget.model.name,
+                        model.name,
                         style: FontStyleApp.nahdiBold45px.copyWith(
                           color: ColorsApp.white,
                         ),
@@ -73,226 +77,107 @@ class _HomeScreenDetailsState extends State<HomeScreenDetails> {
                   ],
                 ),
                 SizedBox(height: 42.h),
-                Text(
-                  widget.model.name == "الفئات النقدية"
-                      ? "الفئات النقدية"
-                      : "مبلغ التبرع",
-                  style: FontStyleApp.nahdiBold45px.copyWith(
-                    fontSize: 56.sp,
-                    color: Color(0xff0C3D61),
+                Padding(
+                  padding: EdgeInsets.all(54.w),
+                  child: DonationAmountSelectorDetails(
+                    title: title,
+                    presetAmounts: presetAmounts,
+                    controller: textEditingController,
+                    onDonate: () async {
+                      FocusScope.of(context).unfocus();
+
+                      final res = await transaction1(
+                        context,
+                        textEditingController.text,
+                      );
+                      if (res) {
+                        _showSuccessDialog(context);
+                      } else if (!res) {
+                        _showErrorDialog(context, "لم يتم الدفع");
+                        // Navigator.pop(context);
+                      }
+                    },
+                    showRyalIcon: true,
                   ),
-                ),
-                // SizedBox(height: 39.h),
-                SizedBox(
-                  width: double.infinity,
-                  // height: 500.h,
-                  child: Wrap(
-                    spacing: 36.w, // المسافة بين العناصر أفقي
-                    runSpacing: 12.h, // المسافة بين الأسطر عمودي
-                    children: List.generate(
-                      widget.model.name == "الفئات النقدية"
-                          ? MoneyDetails.fe2atNakdya.length
-                          : MoneyDetails.e3anaFamily.length,
-                      (index) {
-                        bool isSelected = currentIndex == index;
-
-                        return InkWell(
-                          onTap: () {
-                            currentIndex = index;
-                            setState(() {});
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 12.h,
-                              horizontal: 17.w,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30.r),
-                              color: isSelected
-                                  ? Color(0xff0D4066)
-                                  : Color(0xffF8F8F8),
-                            ),
-                            height: (kIsWeb) ? 400.h : 93.h,
-                            // ممكن تحددي عرض ثابت أو خليها minWidth لو حابة
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              spacing: 12.w,
-                              children: [
-                                SvgPicture.asset(
-                                  AppAssets.ryal,
-
-                                  height:(kIsWeb)? 100.h:50.h,
-                                  width: (kIsWeb)? 100.w:50.w,
-                                    colorFilter: ColorFilter.mode(isSelected
-                                        ? ColorsApp.white
-                                        : Color(0xff9C9C9C), BlendMode.srcIn)
-                                ),
-                                SizedBox(width: 6.w),
-                                Text(
-                                  widget.model.name == "الفئات النقدية"
-                                      ? MoneyDetails.fe2atNakdya[index]
-                                      : MoneyDetails.e3anaFamily[index],
-                                  textDirection: TextDirection.rtl,
-                                  style: FontStyleApp.nahdiBold45px.copyWith(
-                                    color: isSelected
-                                        ? ColorsApp.white
-                                        : Color(0xff9C9C9C),
-                                    fontSize: 51.sp,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-
-                TextFormField(
-                  onChanged: (value) {
-                    setState(() {});
-                  },
-                  controller: widget.textEditingController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                  ],
-                  textDirection: TextDirection.rtl,
-                  textAlign: TextAlign.right,
-
-                  decoration: InputDecoration(
-                    prefixIcon: widget.textEditingController.text.isNotEmpty
-                        ? SvgPicture.asset(
-                            AppAssets.ryal,
-                            height: 22.h,
-                            width: 22.w,
-                         colorFilter: ColorFilter.mode(ColorsApp.grey, BlendMode.srcIn), )
-                        : null,
-                    prefixIconConstraints:(kIsWeb)?null: BoxConstraints(
-                      minWidth: 50.w,
-                      minHeight: 50.h,
-                    ),
-                    hint: Text(
-                      textDirection: TextDirection.rtl,
-                      "قيمة المبلغ",
-                      style: FontStyleApp.nahdiBold45px.copyWith(
-                        fontSize: 40.sp,
-                        color: Color(0xff9C9C9C),
-                      ),
-                    ),
-                    border: InputBorder.none,
-                    focusColor: Color(0xffF8F8F8),
-                    focusedBorder: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    filled: true,
-                    fillColor: Color(0xffF8F8F8),
-                  ),
-                  style: FontStyleApp.nahdiBold45px.copyWith(
-                    fontSize: 40.sp,
-                    color: ColorsApp.grey,
-                  ),
-                  maxLines: 1,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: 14.w,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(33.w),
-                        decoration: BoxDecoration(
-                          color: Color(0xff0F4366),
-                          borderRadius: BorderRadius.circular(40.r),
-                        ),
-
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            "رجوع",
-                            style: FontStyleApp.nahdiBold45px.copyWith(
-                              fontSize: 56.sp,
-                              color: ColorsApp.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(33.w),
-                        decoration: BoxDecoration(
-                          color: ColorsApp.green,
-                          borderRadius: BorderRadius.circular(40.r),
-                        ),
-
-                        child: InkWell(
-                          onTap: () {
-                            // Navigator.pop(context);
-
-                            showDialog<void>(
-                              context: context,
-                              builder: (BuildContext dialogContext) {
-                                return AlertDialog(
-                                  backgroundColor: ColorsApp.white,
-
-                                  //icon
-                                  content: SizedBox(
-                                    width: 1018.w,
-                                    height: 852.h,
-                                    child: Column(
-                                      spacing: 36.h,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          AppAssets.check,
-                                          height: 241.h,
-                                          width: 241.w,
-                                        ),
-                                        SizedBox(height: 75.h),
-                                        Text(
-                                          'تم بنجاح',
-                                          style: FontStyleApp.almaraiBold56px
-                                              .copyWith(
-                                                fontSize: 78.sp,
-                                                color: Color(0xff0C3D61),
-                                              ),
-                                        ),
-                                        Text(
-                                          'شكراً لـ تبرعك',
-                                          style: FontStyleApp.almaraiBold56px
-                                              .copyWith(
-                                                fontSize: 78.sp,
-                                                color: Color(0xff0C3D61),
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                            (child: AlertDialog());
-                          },
-                          child: Text(
-                            "تبرع الآن",
-                            style: FontStyleApp.nahdiBold45px.copyWith(
-                              fontSize: 56.sp,
-                              color: ColorsApp.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: Text(
+        "©all rights reserved easacc",
+        style: FontStyleApp.almaraiBold25px.copyWith(color: Color(0xff6B6B6B)),
+      ),
+    );
+  }
+
+  void _showSuccessDialog(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: ColorsApp.white,
+          content: SizedBox(
+            width: 1018.w,
+            height: kIsWeb ? 1200.h : 852.h,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 36.h,
+              children: [
+                Image.asset(AppAssets.check, height: 241.h, width: 241.w),
+                SizedBox(height: 75.h),
+                Text(
+                  'تم بنجاح',
+                  style: FontStyleApp.almaraiBold56px.copyWith(
+                    fontSize: 78.sp,
+                    color: const Color(0xff0C3D61),
+                  ),
+                ),
+                Text(
+                  'شكراً لـ تبرعك',
+                  style: FontStyleApp.almaraiBold56px.copyWith(
+                    fontSize: 78.sp,
+                    color: const Color(0xff0C3D61),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: ColorsApp.white,
+        content: SizedBox(
+          width: 1018.w,
+          height: kIsWeb ? 1200.h : 852.h,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 36.h,
+            children: [
+              Image.asset(AppAssets.error, height: 241.h, width: 241.w),
+              SizedBox(height: 75.h),
+              Text(
+                'عذراً',
+                style: FontStyleApp.almaraiBold56px.copyWith(
+                  fontSize: 78.sp,
+                  color: const Color(0xff0C3D61),
+                ),
+              ),
+              Text(
+                'لـم يتم الدفع',
+                style: FontStyleApp.almaraiBold56px.copyWith(
+                  fontSize: 78.sp,
+                  color: const Color(0xff0C3D61),
+                ),
+              ),
+            ],
           ),
         ),
       ),

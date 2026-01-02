@@ -63,14 +63,12 @@ class _DonationAmountSelectorState extends State<DonationAmountSelector> {
                         color: isSelected ? const Color(0xff0D4066) : const Color(0xffF8F8F8),
                       ),
                       height: kIsWeb ? null : 93.h,
-                      child: Center(
-                        child: Text(
-                          MoneyDetails.fe2atNakdya[index],
-                          textDirection: TextDirection.rtl,
-                          style: FontStyleApp.nahdiBold45px.copyWith(
-                            color: isSelected ? ColorsApp.white : const Color(0xff9C9C9C),
-                            fontSize: 51.sp,
-                          ),
+                      child: Text(
+                        MoneyDetails.fe2atNakdya[index],
+                        textDirection: TextDirection.rtl,
+                        style: FontStyleApp.nahdiBold45px.copyWith(
+                          color: isSelected ? ColorsApp.white : const Color(0xff9C9C9C),
+                          fontSize: 51.sp,
                         ),
                       ),
                     ),
@@ -100,7 +98,7 @@ class _DonationAmountSelectorState extends State<DonationAmountSelector> {
                   title: "تبرع الآن",
                   color: ColorsApp.green,
                   onTap: () {
-                    Navigator.pop(context);
+                    //Navigator.pop(context);
                     widget.onDonate();
                   },
                 ),

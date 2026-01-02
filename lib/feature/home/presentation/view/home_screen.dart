@@ -1,5 +1,5 @@
-import 'package:donations/feature/home/presentation/view/widgets/box_item.dart';
 import 'package:donations/feature/home/presentation/view/widgets/home_card_item.dart';
+import 'package:donations/feature/home/presentation/view/widgets/widgets/box_item.dart';
 import 'package:donations/feature/home/presentation/view/widgets/widgets/dialog/donation_amount_selector.dart';
 import 'package:donations/feature/home/presentation/view/widgets/widgets/intro_image.dart';
 import 'package:flutter/foundation.dart';
@@ -189,7 +189,7 @@ class HomeScreen extends StatelessWidget {
 
                                         _showSuccessDialog(context);
                                       } else if (!res) {
-                                        Navigator.pop(context);
+                                       Navigator.pop(context);
 
                                         _showErrorDialog(
                                           context,
